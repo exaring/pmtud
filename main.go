@@ -11,7 +11,6 @@ import (
 	"github.com/prometheus/client_golang/prometheus"
 	"github.com/prometheus/client_golang/prometheus/promhttp"
 
-	_ "github.com/q3k/goveralls"
 	log "github.com/sirupsen/logrus"
 )
 
