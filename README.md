@@ -11,7 +11,7 @@ Some Details:
 
   * https://tools.ietf.org/html/draft-jaeggli-v6ops-pmtud-ecmp-problem-00
 
-If you've stumbled over [https://github.com/cloudflare/pmtud/](github.com/cloudflare/pmtud/) but you're in an environment where your servers are in different L2 domains this is probably what you're looking for.
+If you've stumbled over [https://github.com/cloudflare/pmtud/](https://github.com/cloudflare/pmtud/) but you're in an environment where your servers are in different L2 domains this is probably what you're looking for.
 
 ## Install
 
