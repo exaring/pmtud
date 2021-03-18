@@ -1,4 +1,4 @@
-dist: trusty
+dist: bionic
 
 addons:
   apt:
@@ -12,6 +12,7 @@ addons:
       - zlib1g-dev
       - unzip
       - python
+      - libpcap-dev
 
 language: go
 
