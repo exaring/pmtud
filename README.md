@@ -17,6 +17,8 @@ If you've stumbled over [https://github.com/cloudflare/pmtud/](https://github.co
 
 ```go get github.com/exaring/pmtud```
 
+You may need to install the ```libpcap``` header files. On a Debian system you can do that by ```apt-get install libpcap-dev```
+
 ## Run
 
 ```pmtud -cfg.file /path/to/config.yml```
