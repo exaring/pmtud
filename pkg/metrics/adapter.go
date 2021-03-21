@@ -10,13 +10,17 @@ const (
 )
 
 var (
-	packetForwardedDesc *prometheus.Desc
+	packetForwardedDesc     *prometheus.Desc
+	packetForwardedIPv4Desc *prometheus.Desc
+	packetForwardedIPv6Desc *prometheus.Desc
 )
 
 func init() {
 	labels := []string{"ifName"}
 
-	packetForwardedDesc = prometheus.NewDesc(prefix+"forwarded_packets", "Number of forwarded packets", labels, nil)
+	packetForwardedDesc = prometheus.NewDesc(prefix+"forwarded_packets", "Number of forwarded packets (IPv4 + IPv6)", labels, nil)
+	packetForwardedIPv4Desc = prometheus.NewDesc(prefix+"forwarded_packets", "Number of forwarded packets (IPv4)", labels, nil)
+	packetForwardedIPv6Desc = prometheus.NewDesc(prefix+"forwarded_packets", "Number of forwarded packets (IPv6)", labels, nil)
 }
 
 // New creates a new collector instance for an ICMP34 relay
