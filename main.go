@@ -28,7 +28,7 @@ func main() {
 
 	relays := make([]*icmp34relay.Relay, 0)
 	for _, ifa := range cfg.Interfaces {
-		relay, err := icmp34relay.New(ifa, cfg.GetBackends())
+		relay, err := icmp34relay.New(ifa, cfg.GetBackendsIPv4(), cfg.GetBackendsIPv6())
 		if err != nil {
 			log.WithError(err).Fatal("Unable to get ICMP34 relay")
 		}

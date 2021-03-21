@@ -10,9 +10,10 @@ import (
 
 // Config represents a config file
 type Config struct {
-	Interfaces []string `yaml:"interfaces"`
-	Backends   []string `yaml:"backends"`
-	backends   []net.IP
+	Interfaces   []string `yaml:"interfaces"`
+	Backends     []string `yaml:"backends"`
+	backendsIPv4 []net.IP
+	backendsIPv6 []net.IP
 }
 
 // GetConfig gets the config
@@ -23,9 +24,10 @@ func GetConfig(fp string) (*Config, error) {
 	}
 
 	cfg := &Config{
-		Interfaces: make([]string, 0),
-		Backends:   make([]string, 0),
-		backends:   make([]net.IP, 0),
+		Interfaces:   make([]string, 0),
+		Backends:     make([]string, 0),
+		backendsIPv4: make([]net.IP, 0),
+		backendsIPv6: make([]net.IP, 0),
 	}
 
 	err = yaml.Unmarshal(fc, cfg)
@@ -39,13 +41,22 @@ func GetConfig(fp string) (*Config, error) {
 			return nil, errors.Wrapf(err, "Unable to parse IP: %s", b)
 		}
 
-		cfg.backends = append(cfg.backends, a)
+		if a.To4() != nil {
+			cfg.backendsIPv4 = append(cfg.backendsIPv4, a)
+		} else {
+			cfg.backendsIPv6 = append(cfg.backendsIPv6, a)
+		}
 	}
 
 	return cfg, nil
 }
 
-// GetBackends gets the backends
-func (c *Config) GetBackends() []net.IP {
-	return c.backends
+// GetBackendsIPv4 gets the IPv4 backends
+func (c *Config) GetBackendsIPv4() []net.IP {
+	return c.backendsIPv4
+}
+
+// GetBackendsIPv6 gets the IPv6 backends
+func (c *Config) GetBackendsIPv6() []net.IP {
+	return c.backendsIPv6
 }
