@@ -1,6 +1,5 @@
 # Path MTU Discovery Daemon
 
-[![Build Status](https://travis-ci.com/exaring/pmtud.svg?branch=main&status=created)](https://travis-ci.com/exaring/pmtud)
 [![Coverage Status](https://coveralls.io/repos/exaring/pmtud/badge.svg?branch=master&service=github)](https://coveralls.io/github/exaring/pmtud?branch=master)
 [![Go ReportCard](http://goreportcard.com/badge/exaring/pmtud)](http://goreportcard.com/report/exaring/pmtud)
 [![Go Doc](https://godoc.org/github.com/exaring/pmtud?status.svg)](https://godoc.org/github.com/exaring/pmtud)
