@@ -1,10 +1,10 @@
 package config
 
 import (
-	"io/ioutil"
-	"net"
+	"fmt"
+	"net/netip"
+	"os"
 
-	"github.com/pkg/errors"
 	"gopkg.in/yaml.v2"
 )
 
@@ -12,31 +12,31 @@ import (
 type Config struct {
 	Interfaces []string `yaml:"interfaces"`
 	Backends   []string `yaml:"backends"`
-	backends   []net.IP
+	backends   []netip.Addr
 }
 
 // GetConfig gets the config
 func GetConfig(fp string) (*Config, error) {
-	fc, err := ioutil.ReadFile(fp)
+	fc, err := os.ReadFile(fp)
 	if err != nil {
-		return nil, errors.Wrap(err, "Unable to read file")
+		return nil, fmt.Errorf("Unable to read file: %w", err)
 	}
 
 	cfg := &Config{
 		Interfaces: make([]string, 0),
 		Backends:   make([]string, 0),
-		backends:   make([]net.IP, 0),
+		backends:   make([]netip.Addr, 0),
 	}
 
 	err = yaml.Unmarshal(fc, cfg)
 	if err != nil {
-		return nil, errors.Wrap(err, "Unable to unmarshal YAML file")
+		return nil, fmt.Errorf("Unable to unmarshal YAML file: %w", err)
 	}
 
 	for _, b := range cfg.Backends {
-		a := net.ParseIP(b)
-		if a == nil {
-			return nil, errors.Wrapf(err, "Unable to parse IP: %s", b)
+		a, err := netip.ParseAddr(b)
+		if err != nil {
+			return nil, fmt.Errorf("Unable to parse IP '%s': %w", b, err)
 		}
 
 		cfg.backends = append(cfg.backends, a)
@@ -46,6 +46,6 @@ func GetConfig(fp string) (*Config, error) {
 }
 
 // GetBackends gets the backends
-func (c *Config) GetBackends() []net.IP {
+func (c *Config) GetBackends() []netip.Addr {
 	return c.backends
 }

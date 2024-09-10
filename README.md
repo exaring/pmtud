@@ -5,7 +5,10 @@
 [![Go Doc](https://godoc.org/github.com/exaring/pmtud?status.svg)](https://godoc.org/github.com/exaring/pmtud)
 
 In ECMP or L4 load balanced environments ICMP messages are mostly routed to the wrong servers.
-Path MTU Discovery Daemon solves this problem by "broadcasting" received ICMP packet too big messages to all backend instances of an L3/L4 load balanced service using IPIP encapsulation.
+Path MTU Discovery Daemon solves this problem by "broadcasting" received ICMP packet too big messages to all backend
+instances of an L3/L4 load balanced service using IPIP ([RFC2003](https://datatracker.ietf.org/doc/html/rfc2003))
+(legacy IP) and IPv6 Encapsulation ([RFC2473](https://datatracker.ietf.org/doc/html/rfc2473#section-3) (IPv6).
+
 Some Details:
 
   * https://tools.ietf.org/html/draft-jaeggli-v6ops-pmtud-ecmp-problem-00
@@ -31,4 +34,6 @@ interfaces: ["enp4s0"]
 backends:
   - 10.0.0.0
   - 10.0.0.1
+  - 2001:db8::1
+  - 2001:db8::2
 ```
